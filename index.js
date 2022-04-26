@@ -13,8 +13,6 @@ import MongoStore from 'connect-mongo';
 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-
 const PORT = process.env.PORT;
 const server = express();
 connect();
@@ -24,6 +22,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
   res.send('Hello!');
 });
+
+server.use(express.static(path.join(__dirname, 'public')));
 
 server.use(express.json());
 server.use(express.urlencoded({extended:true}))

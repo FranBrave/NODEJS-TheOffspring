@@ -18,11 +18,12 @@ const getAllDiscs = async (req, res, next) => {
 
 const createDisc = async (req, res, next) => {
   try {
+   const discPicture = req.file ? req.file.filename : null;
     const newDisc = new Disc({
       title: req.body.title,
       released: req.body.released,
       sales: req.body.sales,
-      image: req.body.image,
+      image: discPicture,
       songs: []
     });
 
@@ -115,6 +116,5 @@ const addTrack = async (req, res, next) => {
           return next(error);
       }
   };
-
 
 export { getAllDiscs, createDisc, getDiscByID, editDisc, deleteDisc, findDiscByTitle, addTrack };

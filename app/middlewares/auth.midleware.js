@@ -1,5 +1,7 @@
-import { jwt } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import { httpStatusCode } from "../utils/httpStatusCode.js"
+
+
 
 const isAuth = (req, res, next) => {
     const authorization = req.headers.authorization;
@@ -10,28 +12,30 @@ const isAuth = (req, res, next) => {
             data: null
         })
 }
-const splits = authorization.split(' ');
-if (splits.length != 2 || splits[0] != 'Bearer') {
-     return res.status(400).json ({
+
+const [bearerString, bearerToken] = authorization.split(' ');
+if (bearerString !== "Bearer") {
+    return res.status(400).json ({
         status: 400,
         message: HTTPSTATUSCODE[400],
         data: null
-    })
+  })
 }
-const jwtString = splits[1];
-    try {
-        var token = jwt.verify(jwtString, req.app.get('secretKey'));
-    } catch(err) {
-         return next(err);
-    }
-
-    const authority = {
-        id   : token.id,
-        email: token.email
-    };
-
-    req.authority = authority;
-	next(); 
+try {
+  var token = jwt.verify(bearerToken, req.app.get('secretKey'));
+} catch(err) {
+  return next(err);
 }
+
+const authority = {
+  id: token.id,
+  email: token.email
+};
+
+
+req.authority = authority;
+next();
+}
+
 
 export { isAuth }

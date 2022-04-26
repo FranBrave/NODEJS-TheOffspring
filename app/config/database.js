@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-const MONGODB = process.env.MONGODB;
+const MONGODB = process.env.MONGO_DB;
 
 const connect = async () => {
     try {

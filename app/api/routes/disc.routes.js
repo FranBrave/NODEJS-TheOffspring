@@ -17,10 +17,15 @@ const router = express.Router();
 router.get("/", getAllDiscs);
 router.get("/:discID", getDiscByID);
 router.get("/discByTitle/:title", findDiscByTitle)
-router.post("/create", upload.single('image'), [isAuth], createDisc);
-router.put("/edit/:discID", [isAuth], editDisc)
-router.delete("/delete/:discID", [isAuth], deleteDisc)
-router.put('/add-track', [isAuth], addTrack)
+router.post("/create", upload.single('image'), createDisc);
+router.put("/edit/:discID", editDisc)
+router.delete("/delete/:discID", deleteDisc)
+router.put('/add-track', addTrack)
 
 
 export { router };
+
+// , [isAuth]
+// , [isAuth]
+// , [isAuth]
+// , [isAuth]

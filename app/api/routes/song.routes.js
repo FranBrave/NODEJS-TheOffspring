@@ -15,9 +15,13 @@ const router = express.Router();
 router.get("/", getAllSongs);
 router.get("/:songID", getSongByID);
 router.get("/songByTrack/:track", findSongByTrack)
-router.post("/create", [isAuth], createSong);
-router.put("/modify/:songID", [isAuth], editSong)
-router.delete("/delete/:songID", [isAuth], deleteSong)
+router.post("/create", createSong);
+router.put("/modify/:songID", editSong)
+router.delete("/delete/:songID", deleteSong)
 
+
+// , [isAuth]
+// , [isAuth]
+// , [isAuth]
 
 export { router };

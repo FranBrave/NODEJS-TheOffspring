@@ -8,8 +8,6 @@ import { router as songRoutes } from './app/api/routes/song.routes.js'
 import { userRoutes } from './app/api/routes/user.routes.js'
 import { connect } from './app/config/database.js';
 
-import session from 'express-session';
-import MongoStore from 'connect-mongo';
 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

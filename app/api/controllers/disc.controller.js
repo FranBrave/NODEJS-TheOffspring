@@ -1,10 +1,11 @@
+
 import { Disc } from '../models/Disc.js';
 import { httpStatusCode } from '../../utils/httpStatusCode.js';
 
 
 const getAllDiscs = async (req, res, next) => {
   try {
-    const discs = await Disc.find();
+    const discs = await Disc.find().populate('songs');
     return res.json({
       status: 200,
       message: httpStatusCode[200],
@@ -18,17 +19,15 @@ const getAllDiscs = async (req, res, next) => {
 
 const createDisc = async (req, res, next) => {
   try {
-   const discPicture = req.file ? req.file.filename : null;
+   const image = req.file_url || null;
     const newDisc = new Disc({
       title: req.body.title,
       released: req.body.released,
       sales: req.body.sales,
-      image: discPicture,
+      image: image,
       songs: []
     });
-
     const newDiscDB = await newDisc.save();
-
     return res.json({
       status: 201,
       message: httpStatusCode[201],
@@ -38,6 +37,8 @@ const createDisc = async (req, res, next) => {
     return next(error);
   }
 };
+
+
 
 const getDiscByID = async (req, res, next) => {
   try {
@@ -110,7 +111,6 @@ const addTrack = async (req, res, next) => {
           { $push: { songs: songId } },
           { new: true }
           );
-          // const disc = await Disc.findById(discId)
           return res.status(200).json(updatedDisc);
       } catch (error) {
           return next(error);

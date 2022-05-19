@@ -27,6 +27,7 @@ server.use(express.json());
 server.use(express.urlencoded({extended:true}))
 server.use(logger("dev"));
 
+server.use("/", discRoutes)
 server.use("/discs", discRoutes)
 server.use("/songs", songRoutes)
 server.use("/users", userRoutes)
